@@ -16,8 +16,10 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.Map;
+
+import edu.temple.gymminder.models.Exercise;
+import edu.temple.gymminder.models.Workout;
 
 
 /**

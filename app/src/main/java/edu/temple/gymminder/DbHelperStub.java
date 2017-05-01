@@ -5,6 +5,9 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 import java.util.Date;
 
+import edu.temple.gymminder.models.Exercise;
+import edu.temple.gymminder.models.Workout;
+
 /**
  * Created by rober_000 on 4/11/2017.
  */

@@ -2,7 +2,6 @@ package edu.temple.gymminder;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -19,10 +18,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import edu.temple.gymminder.geofence.GeofenceFragment;
+import edu.temple.gymminder.models.Exercise;
+import edu.temple.gymminder.models.Workout;
 
 public class MainActivity extends AppCompatActivity
         implements SigninFragment.SigninListener,

@@ -21,6 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import edu.temple.gymminder.models.Exercise;
+import edu.temple.gymminder.models.Workout;
+
 
 /**
  * A Fragment showing a stored workout. This contains information about the workout, including

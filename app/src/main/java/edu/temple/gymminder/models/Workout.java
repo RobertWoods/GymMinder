@@ -1,4 +1,4 @@
-package edu.temple.gymminder;
+package edu.temple.gymminder.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  */
 
 public class Workout implements Serializable {
-    ArrayList<Exercise> exercises;
+    public ArrayList<Exercise> exercises;
 
     public Workout() {
 

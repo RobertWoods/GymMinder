@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import edu.temple.gymminder.models.Repetition;
+
 /**
  * Created by rober_000 on 2/10/2017.
  */
@@ -584,7 +586,7 @@ public class DataUtils {
         for (Peak p : peaks) {
             DetectedBounds bounds = detectBounds(t1, p);
             if (accept(bounds) && notOverlapping(p, finalBounds)) {
-                repetitions.add(new Repetition(bounds, p, t1));
+                repetitions.add(repetitionFromPeakAndBounds(p, bounds, t1));
                 finalBounds.add(bounds);
 
             }
@@ -597,6 +599,12 @@ public class DataUtils {
             if(peak.index <= b.e && peak.index >= b.s) return false;
         }
         return true;
+    }
+
+
+    private static Repetition repetitionFromPeakAndBounds(Peak peak, DetectedBounds bounds, TimeSeries t1){
+        if(peak==null || bounds==null) return null;
+        return new Repetition(bounds.s, bounds.e, peak.index, peak.amplitude, t1);
     }
 
     public static ArrayList<Peak> zScorePeakDetection(TimeSeries t1) {
@@ -730,23 +738,6 @@ public class DataUtils {
         public Peak(int index, float amplitude) {
             this.index = index;
             this.amplitude = amplitude;
-        }
-    }
-
-    public static class Repetition {
-        int s, e, peakIndex;
-        float peakValue;
-        double[] accelerationStream;
-
-        public Repetition(DetectedBounds bounds, Peak peak, TimeSeries t1){
-            s = bounds.s;
-            e = bounds.e;
-            peakIndex = peak.index;
-            peakValue = peak.amplitude;
-            accelerationStream = new double[t1.size()];
-            for(int i=0; i<t1.size();i++){
-                accelerationStream[i] = t1.getMeasurement(i, 0);
-            }
         }
     }
 

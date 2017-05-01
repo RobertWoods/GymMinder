@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 
+import edu.temple.gymminder.models.Exercise;
+
 /**
  * Handles vibration on reps, calling DataUtils methods to handle data, accelerometer recording,
  * responding to calling component with relevant data such as number of reps, stream stats, the

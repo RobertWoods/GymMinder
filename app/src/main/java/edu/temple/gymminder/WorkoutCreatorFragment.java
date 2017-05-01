@@ -22,6 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
+import edu.temple.gymminder.models.Exercise;
+import edu.temple.gymminder.models.Workout;
+
 
 /**
  * A simple {@link Fragment} subclass.

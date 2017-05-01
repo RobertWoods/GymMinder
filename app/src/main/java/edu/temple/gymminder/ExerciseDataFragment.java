@@ -1,6 +1,5 @@
 package edu.temple.gymminder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -20,6 +19,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import edu.temple.gymminder.models.Exercise;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 

@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -24,8 +23,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Dictionary;
 import java.util.Map;
+
+import edu.temple.gymminder.models.Exercise;
+import edu.temple.gymminder.models.Workout;
 
 import static edu.temple.gymminder.DetailFragment.EXTRA_EXERCISE; //TODO refactor to DataActivity
 

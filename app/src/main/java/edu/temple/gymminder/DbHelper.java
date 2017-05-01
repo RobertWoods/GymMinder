@@ -2,7 +2,6 @@ package edu.temple.gymminder;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -16,9 +15,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
+
+import edu.temple.gymminder.models.Exercise;
+import edu.temple.gymminder.models.Workout;
 
 /**
  * Created by rober_000 on 1/31/2017.

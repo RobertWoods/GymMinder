@@ -1,4 +1,4 @@
-package edu.temple.gymminder;
+package edu.temple.gymminder.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class Exercise implements Serializable {
         initActive();
     }
 
-    void initActive() {
+    public void initActive() {
         completed = new ArrayList<>(sets);
         for (int i = 0; i < sets; i++) completed.add(-1);
         setsDone = 0;
