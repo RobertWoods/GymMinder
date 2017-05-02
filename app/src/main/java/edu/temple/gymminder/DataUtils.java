@@ -41,7 +41,7 @@ public class DataUtils {
     private static final double EXPANSION_VALUE = 1.5;
     public static final long POLLING_FREQUENCY = 30;
     public static final long POLLING_RATE = SECOND / POLLING_FREQUENCY;
-    private static final double PEAK_SIMILARITY_FACTOR = 1.5;
+    private static final double PEAK_SIMILARITY_FACTOR = 3; //TODO: temp, might work better as 1.5
     private static final long ERROR = 1000;
 
     private static float[] avgNode = null;
@@ -282,6 +282,8 @@ public class DataUtils {
 
             }
 
+        } else {
+            System.out.print("");
         }
     }
 

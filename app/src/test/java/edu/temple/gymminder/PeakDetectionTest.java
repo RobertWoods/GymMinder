@@ -279,7 +279,7 @@ public class PeakDetectionTest {
         ArrayList<Object> peaks = new ArrayList<>();
         Random rand = new Random();
         for(int i=0;i<10;i++){
-            peaks.add(constr.newInstance(0, 3.34f+rand.nextFloat()*7f));
+            peaks.add(constr.newInstance(0, 6.68f+rand.nextFloat()*3f));
         }
         assertEquals(10, peaks.size());
         peaks = (ArrayList<Object>) DataUtils.class
