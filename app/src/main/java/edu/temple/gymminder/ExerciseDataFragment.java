@@ -122,7 +122,7 @@ public class ExerciseDataFragment extends Fragment implements DataUtils.Listener
         mSensorListener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent event) {
-                DataUtils.process(event.values, event.timestamp);
+                DataUtils.addToProcessQueue(event.values, event.timestamp);
             }
 
             @Override
