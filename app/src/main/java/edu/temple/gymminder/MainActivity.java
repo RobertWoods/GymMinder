@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     public static final String AD_HOC = "Laughing to the bank like ahhHA";
     public static final String START_FRAGMENT_EXTRA = "It was always me vs the world." +
             "Until I found it was me vs me.";
+    private static final String MAIN_FRAGMENT_TAG = "System system blower";
 
     private FirebaseAuth auth;
     private Fragment activeFragment;
@@ -124,6 +125,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        activeFragment = getSupportFragmentManager().findFragmentByTag(MAIN_FRAGMENT_TAG);
+    }
+
     public void setupAuth() {
         auth = FirebaseAuth.getInstance();
         auth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
@@ -187,9 +194,10 @@ public class MainActivity extends AppCompatActivity
 
 
     public void startFragment(Fragment fragment){
+        String tag = fragment instanceof WorkoutsFragment ? MAIN_FRAGMENT_TAG : null;
         FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.mainFrame, fragment);
+                .replace(R.id.mainFrame, fragment, tag);
         if(activeFragment instanceof WorkoutsFragment) transaction = transaction.addToBackStack(null);
         transaction.commit();
         activeFragment = fragment;
