@@ -20,7 +20,6 @@ import static org.junit.Assert.assertNotEquals;
  */
 
 public class ProcessTest {
-    //TODO: change peaks map back to hashmap so we can put tests back in
     @Rule
     public final DataUtilsResources res = new DataUtilsResources();
 
@@ -36,8 +35,7 @@ public class ProcessTest {
         Random random = new Random();
         for(int i=0; i<100; i++){
             float[] values = {random.nextFloat(), random.nextFloat(), random.nextFloat()};
-            //TODO: changed to make work with test, change to use actual period value
-            DataUtils.process(values, 38571*i);
+            DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
     }
 
@@ -55,8 +53,7 @@ public class ProcessTest {
         Random random = new Random();
         for(int i=0; i<100; i++){
             float[] values = {random.nextFloat(), random.nextFloat(), random.nextFloat()};
-            //TODO: same as other todo
-            DataUtils.process(values, 32571/2*i);
+            DataUtils.process(values, DataUtils.POLLING_RATE/2*i);
         }
         //Should be 1+floor(99/2)
         //Or 1+floor(100/2), it honestly doesn't matter
@@ -65,32 +62,36 @@ public class ProcessTest {
         assertEquals(50, res.processed.get(0).size(), 1);
     }
 
-
+    @Test
     public void processCorrectlyAddsPeak(){
         setupPeakTimeSeriesAndAxis();
-        for(int i=0; i<50; i++){
+        int i;
+        for(i=0; i<50; i++){
             float[] values = {0, 0, 0};
             DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
-        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*50);
-        for(int i=0; i<5; i++){
+        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*i++);
+        int j = i;
+        for(; i<j+5; i++){
             float[] values = {0, 0, 0};
-            DataUtils.process(values, DataUtils.POLLING_RATE*(i+50));
+            DataUtils.process(values, DataUtils.POLLING_RATE*(i));
         }
         assertEquals(1, DataUtils.peaks.size());
     }
 
-
+    @Test
     public void processCorrectlyRemovesPeakAfterProcessed(){
         setupPeakTimeSeriesAndAxis();
-        for(int i=0; i<50; i++){
+        int i;
+        for(i=0; i<50; i++){
             float[] values = {0, 0, 0};
             DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
-        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*50);
-        for(int i=0; i<100; i++){
+        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*i++);
+        int j = i;
+        for(; i<j+100; i++){
             float[] values = {0, 0, 0};
-            DataUtils.process(values, DataUtils.POLLING_RATE*(i+50));
+            DataUtils.process(values, DataUtils.POLLING_RATE*(i));
         }
         assertEquals(0, DataUtils.peaks.size());
     }
@@ -99,7 +100,8 @@ public class ProcessTest {
     public void testProcessRerunsSGFilterOnNewDataEntersWindow() throws InterruptedException {
         
         setupPeakTimeSeriesAndAxis();
-        for(int i=0; i<50; i++){
+        int i;
+        for(i=0; i<50; i++){
             float[] values = {(float) Math.random(), (float) Math.random(), (float) Math.random()};
             DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
@@ -112,9 +114,9 @@ public class ProcessTest {
         };
 
         float[] values = {(float) Math.random(), (float) Math.random(), (float) Math.random()};
-        DataUtils.process(values, DataUtils.POLLING_RATE*50);
-        DataUtils.process(values, DataUtils.POLLING_RATE*51);
-        DataUtils.process(values, DataUtils.POLLING_RATE*52);
+        DataUtils.process(values, DataUtils.POLLING_RATE*i++);
+        DataUtils.process(values, DataUtils.POLLING_RATE*i++);
+        DataUtils.process(values, DataUtils.POLLING_RATE*i);
 
         float[] newValues = {
                 data.get(data.size()-4),
@@ -136,7 +138,8 @@ public class ProcessTest {
     public void testProcessDoesNotRerunSGFilterOnNewDataEntersOutsideWindow() throws InterruptedException {
         
         setupPeakTimeSeriesAndAxis();
-        for(int i=0; i<50; i++){
+        int i;
+        for(i=0; i<50; i++){
             float[] values = {(float) Math.random(), (float) Math.random(), (float) Math.random()};
             DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
@@ -144,64 +147,73 @@ public class ProcessTest {
                 .get(res.processed.get(DataUtils.majorAxisIndex).size()-5);
 
         float[] values = {(float) Math.random(), (float) Math.random(), (float) Math.random()};
-        DataUtils.process(values, DataUtils.POLLING_RATE*50);
+        DataUtils.process(values, DataUtils.POLLING_RATE*i);
 
         float newValue = res.processed.get(DataUtils.majorAxisIndex)
                 .get(res.processed.get(DataUtils.majorAxisIndex).size()-6);
         assertEquals(oldValue, newValue, 0.000001);
     }
 
-
+    @Test
     public void processDoesNotRemovePeakBeforeProcessed(){
         setupPeakTimeSeriesAndAxis();
-        for(int i=0; i<50; i++){
+        int i;
+        for(i=0; i<50; i++){
             float[] values = {0, 0, 0};
             DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
-        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*50);
-        for(int i=0; i<30; i++){
+        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*i++);
+        int j = i;
+        for(; i<j+30; i++){
             float[] values = {0, 0, 0};
-            DataUtils.process(values, DataUtils.POLLING_RATE*(i+50));
+            DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
         assertEquals(1, DataUtils.peaks.size());
     }
 
-
+    @Test
     public void testProcessRemovesOverlappingPeaks(){
         setupPeakTimeSeriesAndAxis();
-        for(int i=0; i<50; i++){
+        int i;
+        for(i=0; i<50;i++){
             float[] values = {0, 0, 0};
             DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
-        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*50);
-        DataUtils.process(new float[] {0,0,0}, DataUtils.POLLING_RATE*51);
-        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*52);
-        DataUtils.process(new float[] {0,0,0}, DataUtils.POLLING_RATE*53);
+        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*i++);
+        DataUtils.process(new float[] {0,0,0}, DataUtils.POLLING_RATE*i++);
+        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*i++);
+        DataUtils.process(new float[] {0,0,0}, DataUtils.POLLING_RATE*i++);
         assertEquals(2, DataUtils.peaks.size());
-        for(int i=0; i<35; i++){
+        int j = i;
+        for(; i<j+35;i++){
             float[] values = {0, 0, 0};
-            DataUtils.process(values, DataUtils.POLLING_RATE*(i+54));
+            DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
         assertEquals(0, DataUtils.peaks.size());
     }
 
-
+    @Test
     public void testProcessDoesNotRemoveNonOverlappingPeaks(){
         setupPeakTimeSeriesAndAxis();
-        for(int i=0; i<50; i++){
+        int i;
+        for(i=0; i<50; i++){
             float[] values = {0, 0, 0};
             DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
-        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*50);
-        for(int i=0; i<31; i++){
+        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*i++);
+
+        int j = i;
+        for(; i<j+31; i++){
             float[] values = {0, 0, 0};
-            DataUtils.process(values, DataUtils.POLLING_RATE*(i+51));
+            DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
-        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*81);
+        DataUtils.process(new float[] {100,100,100}, DataUtils.POLLING_RATE*i++);
         assertEquals(2, DataUtils.peaks.size());
-        for(int i=0; i<5; i++){ //4->5, need to fix time series data to fix
+
+        j = i;
+        for(; i<j+5; i++){ //TODO: /4->5, need to fix time series data to fix
             float[] values = {0, 0, 0};
-            DataUtils.process(values, DataUtils.POLLING_RATE*(i+82));
+            DataUtils.process(values, DataUtils.POLLING_RATE*i);
         }
         assertEquals(1, DataUtils.peaks.size());
     }

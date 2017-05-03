@@ -282,8 +282,6 @@ public class DataUtils {
 
             }
 
-        } else {
-            System.out.print("");
         }
     }
 
