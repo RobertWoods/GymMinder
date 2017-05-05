@@ -12,9 +12,12 @@ import android.widget.ListView;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 
 import edu.temple.gymminder.models.Exercise;
@@ -91,25 +94,29 @@ public class HistoryFragment extends Fragment implements DbHelper.Listener {
     public void respondToHistory(final ArrayList<Workout> workouts, final ArrayList<String> names, final ArrayList<String> workoutNames, final Map<String, String> dates) {
         ListView lv = (ListView) getView().findViewById(R.id.historylist);
         ArrayList<String> names2 = new ArrayList<String>();
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE MMMM dd, yyyy",
+                getResources().getConfiguration().getLocales().get(0));
         for(String x : names){
             String[] y = x.split("\\s+");
             int day = Integer.parseInt(y[0]);
             int year = Integer.parseInt(y[1]);
-            final Calendar calendar = Calendar.getInstance();
+            Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_YEAR, day);
-            final Date date = new Date(calendar.getTimeInMillis());
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(date);
-            int year2 = cal.get(Calendar.YEAR);
-            int month = cal.get(Calendar.MONTH);
-            int day2 = cal.get(Calendar.DAY_OF_MONTH);
-            month++;
-            names2.add(month + "/" + day2 + "/" + year);
+            calendar.set(Calendar.YEAR, year);
+            names2.add(dateFormat.format(calendar.getTime()));
         }
-
+        Collections.sort(names2, new Comparator<String>() {
+            @Override
+            public int compare(String s, String t1) {
+                try {
+                    return dateFormat.parse(s).compareTo(dateFormat.parse(t1));
+                } catch (ParseException e) { return 0; }
+            }
+        });
 
         q = -1;
         q1 = false;
+
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, names2);
 
         lv.setAdapter(adapter);

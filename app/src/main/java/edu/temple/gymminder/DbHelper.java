@@ -222,7 +222,7 @@ public class DbHelper {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ArrayList<Workout> workouts = new ArrayList<>();
-                Map<String, String> dates = new HashMap<String, String>();;
+                Map<String, String> dates = new HashMap<>();
 
 
                 //TODO maybe refactor workout definition to include name, so we don't have to do this
