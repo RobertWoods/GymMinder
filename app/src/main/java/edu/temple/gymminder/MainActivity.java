@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,10 +36,12 @@ public class MainActivity extends AppCompatActivity
     public static final String START_FRAGMENT_EXTRA = "It was always me vs the world." +
             "Until I found it was me vs me.";
     private static final String MAIN_FRAGMENT_TAG = "System system blower";
+    private static final String OTHER_FRAGMENT_TAG = "Grab your fucking chain and drag it through the bike lane";
 
     private FirebaseAuth auth;
     private Fragment activeFragment;
     private BottomNavigationView tabBar;
+
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +131,20 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-        activeFragment = getSupportFragmentManager().findFragmentByTag(MAIN_FRAGMENT_TAG);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        activeFragment = fragmentManager.findFragmentByTag(MAIN_FRAGMENT_TAG);
+        tabBar.getMenu().findItem(R.id.navigation_workouts).setChecked(true);
+        /*
+            If our fragment depth (number of fragments navigating away from main fragment)
+            becomes higher than 2, we want to remove any fragments not handled by the back stack.
+         */
+        Fragment oldFragment = fragmentManager.findFragmentByTag(OTHER_FRAGMENT_TAG);
+        if(oldFragment!=null) {
+            fragmentManager
+                    .beginTransaction()
+                    .remove(oldFragment)
+                    .commit();
+        }
     }
 
     public void setupAuth() {
@@ -194,7 +210,7 @@ public class MainActivity extends AppCompatActivity
 
 
     public void startFragment(Fragment fragment){
-        String tag = fragment instanceof WorkoutsFragment ? MAIN_FRAGMENT_TAG : null;
+        String tag = fragment instanceof WorkoutsFragment ? MAIN_FRAGMENT_TAG : OTHER_FRAGMENT_TAG;
         FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.mainFrame, fragment, tag);
