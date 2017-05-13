@@ -174,10 +174,6 @@ public class MainActivity extends AppCompatActivity
         startFragment(detailFragment);
     }
 
-    public void goToWorkoutHistoryDay(Date day){
-        //DayFragment dayFragment = DayFragment.newInstance(day);
-
-    }
 
     public void goToWorkoutCreator() {
         WorkoutCreatorFragment workoutCreatorFragment = new WorkoutCreatorFragment();
