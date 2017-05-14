@@ -3,7 +3,6 @@ package edu.temple.gymminder;
 import android.util.SparseArray;
 
 import com.fastdtw.timeseries.TimeSeries;
-import com.fastdtw.timeseries.TimeSeriesBase;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,8 +12,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+
+import edu.temple.gymminder.processing.DataUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

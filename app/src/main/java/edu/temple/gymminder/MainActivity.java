@@ -24,6 +24,7 @@ import java.util.Date;
 import edu.temple.gymminder.geofence.GeofenceFragment;
 import edu.temple.gymminder.models.Exercise;
 import edu.temple.gymminder.models.Workout;
+import edu.temple.gymminder.processing.DataUtils;
 
 public class MainActivity extends AppCompatActivity
         implements SigninFragment.SigninListener,

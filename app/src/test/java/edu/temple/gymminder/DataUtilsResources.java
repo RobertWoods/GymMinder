@@ -1,12 +1,12 @@
 package edu.temple.gymminder;
 
-import android.util.SparseArray;
-
 import com.fastdtw.timeseries.TimeSeriesBase;
 
 import org.junit.rules.ExternalResource;
 
 import java.util.ArrayList;
+
+import edu.temple.gymminder.processing.DataUtils;
 
 /**
  * Created by rober_000 on 4/12/2017.
@@ -36,7 +36,7 @@ public class DataUtilsResources extends ExternalResource {
         Class[] classes = DataUtils.class.getDeclaredClasses();
         Class peakClass = null;
         for (Class c : classes) {
-            if (c.getName().equals("edu.temple.gymminder.DataUtils$" + className)) {
+            if (c.getName().equals("edu.temple.gymminder.processing.DataUtils$" + className)) {
                 peakClass = c;
                 break;
             }

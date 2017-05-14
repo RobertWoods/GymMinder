@@ -1,16 +1,13 @@
 package edu.temple.gymminder;
 
-import android.util.SparseArray;
-
-import com.fastdtw.timeseries.TimeSeriesBase;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
+
+import edu.temple.gymminder.processing.DataUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;

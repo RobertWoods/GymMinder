@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 import edu.temple.gymminder.models.Exercise;
+import edu.temple.gymminder.processing.DataUtils;
 
 /**
  * Handles vibration on reps, calling DataUtils methods to handle data, accelerometer recording,

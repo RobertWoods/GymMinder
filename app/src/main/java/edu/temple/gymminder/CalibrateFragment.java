@@ -25,9 +25,11 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.temple.gymminder.processing.DataProcessor;
+import edu.temple.gymminder.processing.DataUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -173,7 +175,7 @@ public class CalibrateFragment extends Fragment {
             public void onAccuracyChanged(Sensor sensor, int accuracy) {}
         };
 
-        mSensorManager.registerListener(mSensorListener, sensor, (int) DataUtils.POLLING_RATE);
+        mSensorManager.registerListener(mSensorListener, sensor, (int) DataProcessor.POLLING_RATE);
     }
 
     void process() {

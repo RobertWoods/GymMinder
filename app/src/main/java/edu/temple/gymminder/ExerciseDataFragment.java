@@ -21,6 +21,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import edu.temple.gymminder.models.Exercise;
+import edu.temple.gymminder.processing.DataUtils;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 

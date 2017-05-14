@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import edu.temple.gymminder.processing.DataUtils;
+
 import static org.junit.Assert.assertEquals;
 
 /**

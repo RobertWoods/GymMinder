@@ -5,12 +5,13 @@ import com.fastdtw.timeseries.TimeSeriesBase;
 
 import org.junit.*;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Random;
+
+import edu.temple.gymminder.processing.DataUtils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
