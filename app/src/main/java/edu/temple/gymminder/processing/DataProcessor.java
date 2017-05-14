@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import edu.temple.gymminder.models.Peak;
+
 /**
  * Created by rober_000 on 5/13/2017.
  */
@@ -32,8 +34,8 @@ public class DataProcessor {
     private ArrayList<ArrayList<Float>> processedData;
     private ArrayList<Long> timestamps;
 
-    public SparseArray<DataUtils.Peak> peaks = new SparseArray<>();
-    public DataUtils.Peak repPeak;
+    public SparseArray<Peak> peaks = new SparseArray<>();
+    public Peak repPeak;
     public TimeSeries repTimeSeries;
     public int majorAxisIndex;
 
@@ -135,7 +137,7 @@ public class DataProcessor {
                 DataUtils.applySGFilterRealtime(j, data.get(i), processedData.get(i));
             }
             avgNode = null;
-            DataUtils.Peak newPeak = DataUtils.detectPeak(size, processedData.get(majorAxisIndex), repPeak, 1);
+            Peak newPeak = DataUtils.detectPeak(size, processedData.get(majorAxisIndex), repPeak, 1);
             //TODO: Probably want to put this in a thread that enqueues new peaks to check
             if (newPeak != null) {
                     /*
@@ -203,7 +205,7 @@ public class DataProcessor {
 
             line = reader.readLine();
             numbers = line.split(",");
-            repPeak = new DataUtils.Peak(Integer.parseInt(numbers[0]), Float.parseFloat(numbers[1]));
+            repPeak = new Peak(Integer.parseInt(numbers[0]), Float.parseFloat(numbers[1]));
             repTimeSeries = builder.build();
 
             line = reader.readLine();

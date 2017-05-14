@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import edu.temple.gymminder.models.Peak;
 import edu.temple.gymminder.models.Repetition;
 
 /**
@@ -52,7 +53,7 @@ public class DataUtils {
      * @param list list of float values for which to calculate riemann rectangles
      * @return array of riemann rectangles
      */
-    static float[] riemann(List<Float> list) {
+    public static float[] riemann(List<Float> list) {
         float[] velocity = new float[list.size() - 1];
         Iterator<Float> iterator = list.listIterator();
         int i = 0;
@@ -86,7 +87,7 @@ public class DataUtils {
      * @param floats An array of values representing riemann sums
      * @return List of partial sums at each value
      */
-    static float[] partialSums(float[] floats) {
+    public static float[] partialSums(float[] floats) {
         float[] data = new float[floats.length];
         for (int i = 0; i < floats.length; i++) {
             data[i] = (sum(floats, i + 1));
@@ -98,7 +99,7 @@ public class DataUtils {
      * @param floats array of floats for which to find the maximum and average value
      * @return a float array whose first value is the max and whose second value is the average
      */
-    static float[] maxAndAvg(float[] floats) {
+    public static float[] maxAndAvg(float[] floats) {
         float f[] = new float[2];
         float max = floats[0];
         float sum = 0;
@@ -244,7 +245,7 @@ public class DataUtils {
      * @param data array of data points to be smoothed
      * @return smoothed data points
      */
-    static ArrayList<Float> applySavitzkyGolayFilter(ArrayList<Float> data) {
+    public static ArrayList<Float> applySavitzkyGolayFilter(ArrayList<Float> data) {
         ArrayList<Float> filtered = new ArrayList<>(data.size());
         for (int i = 0; i < data.size(); i++) {
             float sum = 0;
@@ -518,15 +519,6 @@ public class DataUtils {
         }
     }
 
-    public static class Peak {
-        public int index;
-        public float amplitude;
-
-        public Peak(int index, float amplitude) {
-            this.index = index;
-            this.amplitude = amplitude;
-        }
-    }
 
     public interface Listener {
         void respondToRep();

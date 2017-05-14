@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.temple.gymminder.models.Peak;
 import edu.temple.gymminder.processing.DataProcessor;
 import edu.temple.gymminder.processing.DataUtils;
 
@@ -201,12 +202,12 @@ public class CalibrateFragment extends Fragment {
             TimeSeries timeSeries = builder.build();
 
             // Find the peak of the rep
-            ArrayList<DataUtils.Peak> peaks = DataUtils.zScorePeakDetection(timeSeries);
-            DataUtils.Peak peak;
+            ArrayList<Peak> peaks = DataUtils.zScorePeakDetection(timeSeries); //TODO interface to handle this
+            Peak peak;
             if (peaks.size() > 0) {
                 // use the peak with the max value
                 peak = peaks.get(0);
-                for (DataUtils.Peak p : peaks) {
+                for (Peak p : peaks) {
                     if (p.amplitude > peak.amplitude)
                         peak = p;
                 }
